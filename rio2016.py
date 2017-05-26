@@ -6,6 +6,7 @@
 
 ######################################################################
 
+from openerp import tools, api
 from openerp.osv import fields, osv, orm
 from datetime import time, datetime
 from openerp.tools.translate import _
@@ -54,7 +55,11 @@ rio2016_modelo()
 class paises_modelo(osv.osv):
     _name = 'paises.modelo'
     _description = 'Formulario de paises'
+
     _columns = {
+        'image' : fields.binary("Image", attachment=True,
+                              help="Flag of country, limited to 1024x1024px"),
+
         'name': fields.char('Nombre Pais', size=100),
         'continent': fields.char('Continente', size=100),
         'active': fields.boolean('Activo'),
