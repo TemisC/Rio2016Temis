@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	 <data>
+	 	<!--  Vamos a grabar datos  -->
+	 	<record id="rio2016_modelo_tree_view" model="ir.ui.view">
+	 		<field name="name">rio2016.modelo.tree</field>
+	 		<field name="model">rio2016.modelo</field>
+            	<field name="arch" type="xml">
+            	   <tree string ="Listado de...">
+            	   	  <field name="name" />
+					   <field name="age" sum="Suma de edades" /> <!--style="text-align: center"/> prueba para solucionar alineacion de ese campo en la vista tree -->
+            	   	  <field name="pais_id"/>
+            	   </tree>
+                </field>
+	    </record>
+
+		<!--  PAISES  VISTA ARBOL-->
+		 <record id="paises_modelo_tree_view" model="ir.ui.view">
+	 		<field name="name">paises.modelo.tree</field>
+	 		<field name="model">paises.modelo</field>
+            	<field name="arch" type="xml">
+            	   <tree string ="Listado de Paises...">
+            	   	  <field name="name" />
+            	   	  <field name="continent"/>
+
+            	   </tree>
+                </field>
+	    </record>
+
+	   <!--  Vamos a grabar datos  -->
+	 	<record id="rio2016_modelo_form" model="ir.ui.view">
+	 		<field name="name">rio2016.modelo.form</field>
+	 		<field name="model">rio2016.modelo</field>
+            	<field name="arch" type="xml">
+            	   <form string ="Formulario de Atletas" version="9.0">
+					   <header>
+							   <field name="state" widget="statusbar" />
+						</header>
+            	   	<!--  Cuerpo  -->
+            	   	<sheet>
+						<!--  <group colspan="4">  -->
+						<group>
+            	   		 <field name="name" placeholder="Nombre del Atleta" style="width:30%"/>
+							<field name="age" placeholder="Edad del Atleta" style="width:30%"/>
+                         <field name="pais_id" domain="[('pais_desarrollado','=',True),('continent','=','America')]"
+								style="width:30%" widget="selection" on_change="pulsar_pais()"/>
+						 <field name="gold" on_change="_sumar_medallas(gold,plata,bronce)"/>
+						 <field name="plata" on_change="_sumar_medallas(gold,plata,bronce)"/>
+						 <field name="bronce" on_change="_sumar_medallas(gold,plata,bronce)"/>
+            	   	     <field name="active" />
+							<field name="total_M" />
+						</group>
+            	   	</sheet>
+            	   	 </form>
+                </field>
+	    </record>
+
+		 <!--  PAISES VISTA FORM -->
+	 	<record id="paises_modelo_form_view" model="ir.ui.view">
+	 		<field name="name">paises.modelo.form</field>
+	 		<field name="model">paises.modelo</field>
+            	<field name="arch" type="xml">
+            	   <form string ="Formulario de Paises" version="9.0">
+            	   	<!--  Cuerpo  -->
+            	   	<sheet>
+						<!--  <group colspan="4">  -->
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only"/> <!-- string="HOLA HOLA" Escrito despues de for="name"
+							#Sustituyo en titulo de la etiqueta por lo que yo desee-->
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+            	   	<group>
+						 <field name="continent"/>
+						 <field name="active" />
+						 <field name="pais_desarrollado"/>
+            	   	</group>
+						<notebook>
+							<page string = "Ciudades del Pais">
+								<field name="ciudades_ids">
+									<tree string="Ciudades del Pais" editable = "bottom">
+										<field name="name" />
+										<field name="ciudad_capital"/>
+										 <field name="poblacion" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+            	   	</sheet>
+            	   	 </form>
+                </field>
+	    </record>
+
+		 <!--  PRUEBA DE LOS PAISES EVENTO -->
+        <record id="paises_modelo_action" model="ir.actions.act_window">
+        	<field name="name">Paises participantes</field>
+        	<field name="res_model">paises.modelo</field>
+        	<field name="view_type">form</field>
+        	<field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <!--  Definimos los eventos -->
+        <record id="rio2016_modelo_action" model="ir.actions.act_window">
+        	<field name="name">Medallero de atletas en Olimpiadas de Rio2016</field>
+        	<field name="res_model">rio2016.modelo</field>
+        	<field name="view_type">form</field>
+        	<field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <!--  Definimos el menu-->
+        <menuitem id="rio2016_modelo_menu" name="Rio2016 by Temis" />
+        <menuitem id="rio2016_modelo_submenu" name="Atletas" parent="rio2016_modelo_menu" sequence="0" />
+      <!--   <menuitem id="rio2016_modelo_submenu" name="Delegaciones" parent="rio2016_modelo_menu" sequence="0" />-->
+
+		 <!--  PRUEBA DE LOS PAISES EVENTO -->
+        <!--<menuitem id="paises_modelo_menu" name="Paises by Temis" />-->
+        <menuitem id="paises_modelo_submenu" name="Paises" parent="rio2016_modelo_menu" sequence="0" />
+
+        <!--  Enlazamos la acción al submenú-->
+        <menuitem id="rio2016_modelo_menu_action" name="Atletas y Medallas" parent="rio2016_modelo_submenu" sequence="0" action="rio2016_modelo_action"/>
+		 <menuitem id="paises_modelo_menu_action" name="Paises" parent="paises_modelo_submenu" sequence="0" action="paises_modelo_action"/>
+
+     </data>
+</openerp>
