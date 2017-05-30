@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding= "utf-8"?>
+<openerp>
+   <data>
+       <report>
+           id="reporte_atletas_report"
+           string="Reporte de atletas"
+           report_type="qweb-pdf"
+           file="rio.atletas"
+           name="rio.atletas_quanam"
+           menu="True"
+       </report>
+   </data>
+</openerp>

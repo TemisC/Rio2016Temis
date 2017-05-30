@@ -26,6 +26,7 @@ Nota: Necesita Ventas.
     'update_xml':
         [
         'rio2016_view.xml',
+        'Reports/Reports_Rio_view.xml'
     ],
     'installable': True,
     'active': False,

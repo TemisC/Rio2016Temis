@@ -57,8 +57,7 @@ class paises_modelo(osv.osv):
     _description = 'Formulario de paises'
 
     _columns = {
-        'image' : fields.binary("Image", attachment=True,
-                              help="Flag of country, limited to 1024x1024px"),
+        'image' : fields.binary("Image", attachment=True, help="Flag of country, limited to 1024x1024px"),
 
         'name': fields.char('Nombre Pais', size=100),
         'continent': fields.char('Continente', size=100),
